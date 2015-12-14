@@ -35,6 +35,7 @@ namespace PingBot
             int interval=3600000-(time.Millisecond+1000*(time.Second+60*(time.Minute)));
             TestTimer.Interval = interval;
 
+            TimeOut = 125;
             PingTargets = new List<string>();
 
             try
@@ -69,8 +70,8 @@ namespace PingBot
         }
         private async void runTests()
         {
-            await floodTest();
-            await sequentialTest();
+            await floodTest(MinBufferLength);
+            await sequentialTest(MinBufferLength);
 
         }
         private async Task floodTest(int bufferSize)
