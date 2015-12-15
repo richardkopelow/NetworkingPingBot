@@ -36,6 +36,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.sequentialDataGridView = new System.Windows.Forms.DataGridView();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.floodDataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sequentialDataGridView)).BeginInit();
@@ -52,7 +55,7 @@
             this.floodDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.floodDataGridView.Location = new System.Drawing.Point(12, 44);
             this.floodDataGridView.Name = "floodDataGridView";
-            this.floodDataGridView.Size = new System.Drawing.Size(560, 159);
+            this.floodDataGridView.Size = new System.Drawing.Size(516, 159);
             this.floodDataGridView.TabIndex = 0;
             // 
             // menuStrip1
@@ -61,12 +64,15 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(540, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -96,14 +102,39 @@
             this.sequentialDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.sequentialDataGridView.Location = new System.Drawing.Point(12, 222);
             this.sequentialDataGridView.Name = "sequentialDataGridView";
-            this.sequentialDataGridView.Size = new System.Drawing.Size(560, 159);
+            this.sequentialDataGridView.Size = new System.Drawing.Size(516, 159);
             this.sequentialDataGridView.TabIndex = 4;
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // quitToolStripMenuItem
+            // 
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // runButton
+            // 
+            this.runButton.Location = new System.Drawing.Point(453, 491);
+            this.runButton.Name = "runButton";
+            this.runButton.Size = new System.Drawing.Size(75, 23);
+            this.runButton.TabIndex = 5;
+            this.runButton.Text = "Run Tests";
+            this.runButton.UseVisualStyleBackColor = true;
+            this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 526);
+            this.ClientSize = new System.Drawing.Size(540, 526);
+            this.Controls.Add(this.runButton);
             this.Controls.Add(this.sequentialDataGridView);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -131,6 +162,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView sequentialDataGridView;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
+        private System.Windows.Forms.Button runButton;
     }
 }
 

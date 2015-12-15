@@ -29,12 +29,6 @@ namespace PingBot
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            TestTimer.Enabled = true;
-            DateTime time = DateTime.Now;
-            DateTime nextHour = new DateTime(time.Year, time.Month, time.Day, time.Hour + 1, 0, 0);
-            int interval=3600000-(time.Millisecond+1000*(time.Second+60*(time.Minute)));
-            TestTimer.Interval = interval;
-
             TimeOut = 125;
             PingTargets = new List<string>();
 
@@ -60,7 +54,6 @@ namespace PingBot
                 //PingTargets.Add("155.246.135.1");
                 PingTargets.Add("google.com");
             }
-            runTests();
         }
 
         private void TestTimer_Tick(object sender, EventArgs e)
@@ -153,6 +146,29 @@ namespace PingBot
                     sequentialDataGridView.DataSource = sequentialReplies;
                 }
             }
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsDialogue sd =new SettingsDialogue();
+            sd.MainWindow = this;
+            sd.ShowDialog();
+        }
+
+        private void runButton_Click(object sender, EventArgs e)
+        {
+            TestTimer.Enabled = true;
+            DateTime time = DateTime.Now;
+            DateTime nextHour = new DateTime(time.Year, time.Month, time.Day, time.Hour + 1, 0, 0);
+            int interval = 3600000 - (time.Millisecond + 1000 * (time.Second + 60 * (time.Minute)));
+            TestTimer.Interval = interval;
+
+            runTests();
         }
     }
 }

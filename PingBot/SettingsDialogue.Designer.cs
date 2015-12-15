@@ -111,6 +111,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SettingsDialogue";
             this.Text = "Settings";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsDialogue_FormClosed);
+            this.Load += new System.EventHandler(this.SettingsDialogue_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
