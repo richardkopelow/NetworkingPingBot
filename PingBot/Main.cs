@@ -67,6 +67,9 @@ namespace PingBot
             await sequentialTest(MinBufferLength);
 
         }
+
+        String date; //defines a variable for using when referencing the log file path to avoid spltting issues
+
         private async Task floodTest(int bufferSize)
         {
             string addresses = "IP Address: \t"; //define variables for use in log
@@ -122,13 +125,13 @@ namespace PingBot
             }
             await Task.Run((Action)waitForFloodFinish);
 
-            double rtt_avg = rtt_total / count; //calculate averages
-            double ttl_avg = ttl_total / count;
+            double rtt_avg = (double)rtt_total / (double)count; //calculate averages
+            double ttl_avg = (double)ttl_total / (double)count;
 
             DateTime localDate = DateTime.Now; //output log
             String fileFormat = "MMM d yyyy - HHmm";   // Use this format
             String headerFormat = "MMM d yyyy - HH:mm";
-            String date = localDate.ToString(fileFormat);
+            date = localDate.ToString(fileFormat);
             String header = localDate.ToString(headerFormat);
             String floodLog = header + " Flood Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n\r\n" + "Average RTT: " + rtt_avg + "\r\nAverage TTL: " + ttl_avg + "\r\n"; 
             System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Network Ping Log for " + date + @".txt", floodLog);
@@ -194,13 +197,13 @@ namespace PingBot
                 }
             }
 
-            double rtt_avg = rtt_total / count; //calculate averages
-            double ttl_avg = ttl_total / count;
+            double rtt_avg = (double)rtt_total / (double)count; //calculate averages
+            double ttl_avg = (double)ttl_total / (double)count;
 
             DateTime localDate = DateTime.Now; //output log
             String fileFormat = "MMM d yyyy - HHmm";   // Use this format
             String headerFormat = "MMM d yyyy - HH:mm";
-            String date = localDate.ToString(fileFormat);
+            //String date = localDate.ToString(fileFormat);
             String header = localDate.ToString(headerFormat);
             String seqLog = header + " Sequential Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n\r\n" + "Average RTT: " + rtt_avg + "\r\nAverage TTL: " + ttl_avg + "\r\n"; 
             using (StreamWriter sw = File.AppendText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Network Ping Log for " + date + @".txt"))
