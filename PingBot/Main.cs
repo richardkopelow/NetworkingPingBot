@@ -128,6 +128,8 @@ namespace PingBot
             double rtt_avg = (double)rtt_total / (double)count; //calculate averages
             double ttl_avg = (double)ttl_total / (double)count;
 
+            label3.Text = "Flood Test RTT Average: " + rtt_avg + "\r\nFlood Test TTL Average: " + ttl_avg; //set the average in the winform
+
             DateTime localDate = DateTime.Now; //output log
             String fileFormat = "MMM d yyyy - HHmm";   // Use this format
             String headerFormat = "MMM d yyyy - HH:mm";
@@ -200,8 +202,10 @@ namespace PingBot
             double rtt_avg = (double)rtt_total / (double)count; //calculate averages
             double ttl_avg = (double)ttl_total / (double)count;
 
+            label4.Text = "Sequential Test RTT Average: " + rtt_avg + "\r\nSequential Test TTL Average: " + ttl_avg; //set the average in the winform
+
             DateTime localDate = DateTime.Now; //output log
-            String fileFormat = "MMM d yyyy - HHmm";   // Use this format
+            //String fileFormat = "MMM d yyyy - HHmm";   // Use this format
             String headerFormat = "MMM d yyyy - HH:mm";
             //String date = localDate.ToString(fileFormat);
             String header = localDate.ToString(headerFormat);
@@ -234,6 +238,16 @@ namespace PingBot
             TestTimer.Interval = interval;
 
             runTests();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
