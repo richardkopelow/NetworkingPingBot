@@ -74,6 +74,10 @@ namespace PingBot
             string rtts = "RTT: \t\t";
             string ttls = "TTL: \t\t";
 
+            int rtt_total = 0; //define variables for calculating averages
+            int ttl_total = 0;
+            int count = 0;
+
             floodReplies = new List<PingStats>();
             foreach (string ipAddress in PingTargets)
             {
@@ -106,6 +110,10 @@ namespace PingBot
                         statuses = statuses + stats.Status + " \t";
                         rtts = rtts + stats.RoundtripTime + "\t\t";
                         ttls = ttls + stats.TTL + "\t\t";
+
+                        rtt_total += (int) stats.RoundtripTime; //increment variables for finding the average
+                        ttl_total += stats.TTL;
+                        count++;
                     };
                     byte[] buffer = new byte[bufferSize];
                     ping.SendPingAsync(ipAddress,TimeOut,buffer);
@@ -114,15 +122,16 @@ namespace PingBot
             }
             await Task.Run((Action)waitForFloodFinish);
 
+            double rtt_avg = rtt_total / count; //calculate averages
+            double ttl_avg = ttl_total / count;
+
             DateTime localDate = DateTime.Now; //output log
             String fileFormat = "MMM d yyyy - HHmm";   // Use this format
             String headerFormat = "MMM d yyyy - HH:mm";
             String date = localDate.ToString(fileFormat);
             String header = localDate.ToString(headerFormat);
-            String floodLog = header + " Flood Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n"; 
+            String floodLog = header + " Flood Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n\r\n" + "Average RTT: " + rtt_avg + "\r\nAverage TTL: " + ttl_avg + "\r\n"; 
             System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Network Ping Log for " + date + @".txt", floodLog);
-          
-
         }
         private void waitForFloodFinish()
         {
@@ -138,6 +147,10 @@ namespace PingBot
             string statuses = "Status: \t";
             string rtts = "RTT: \t\t";
             string ttls = "TTL: \t\t";
+
+            int rtt_total = 0; //define variables for calculating averages
+            int ttl_total = 0;
+            int count = 0;
 
             sequentialReplies = new List<PingStats>();
             foreach (string ipAddress in PingTargets)
@@ -168,6 +181,10 @@ namespace PingBot
                         statuses = statuses + stats.Status + " \t";
                         rtts = rtts + stats.RoundtripTime + "\t\t";
                         ttls = ttls + stats.TTL + "\t\t";
+
+                        rtt_total += (int)stats.RoundtripTime; //increment variables for finding the average
+                        ttl_total += stats.TTL;
+                        count++;
                     };
 
                     byte[] buffer = new byte[bufferSize];
@@ -177,12 +194,15 @@ namespace PingBot
                 }
             }
 
+            double rtt_avg = rtt_total / count; //calculate averages
+            double ttl_avg = ttl_total / count;
+
             DateTime localDate = DateTime.Now; //output log
             String fileFormat = "MMM d yyyy - HHmm";   // Use this format
             String headerFormat = "MMM d yyyy - HH:mm";
             String date = localDate.ToString(fileFormat);
             String header = localDate.ToString(headerFormat);
-            String seqLog = header + " Sequential Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n";
+            String seqLog = header + " Sequential Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n\r\n" + "Average RTT: " + rtt_avg + "\r\nAverage TTL: " + ttl_avg + "\r\n"; 
             using (StreamWriter sw = File.AppendText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Network Ping Log for " + date + @".txt"))
             {
                 sw.WriteLine("\r\n\r\n" + seqLog);
