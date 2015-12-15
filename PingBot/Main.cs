@@ -69,6 +69,11 @@ namespace PingBot
         }
         private async Task floodTest(int bufferSize)
         {
+            string addresses = "IP Address: \t"; //define variables for use in log
+            string statuses = "Status: \t";
+            string rtts = "RTT: \t\t";
+            string ttls = "TTL: \t\t";
+
             floodReplies = new List<PingStats>();
             foreach (string ipAddress in PingTargets)
             {
@@ -96,6 +101,11 @@ namespace PingBot
                         floodReplies.Add(stats);
                         floodDataGridView.DataSource = null;
                         floodDataGridView.DataSource = floodReplies;
+
+                        addresses = addresses + stats.Address + "\t"; //append the data in the strings to be used in the log
+                        statuses = statuses + stats.Status + " \t";
+                        rtts = rtts + stats.RoundtripTime + "\t\t";
+                        ttls = ttls + stats.TTL + "\t\t";
                     };
                     byte[] buffer = new byte[bufferSize];
                     ping.SendPingAsync(ipAddress,TimeOut,buffer);
@@ -103,6 +113,16 @@ namespace PingBot
                 }
             }
             await Task.Run((Action)waitForFloodFinish);
+
+            DateTime localDate = DateTime.Now; //output log
+            String fileFormat = "MMM d yyyy - HHmm";   // Use this format
+            String headerFormat = "MMM d yyyy - HH:mm";
+            String date = localDate.ToString(fileFormat);
+            String header = localDate.ToString(headerFormat);
+            String floodLog = header + " Flood Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n"; 
+            System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Network Ping Log for " + date + @".txt", floodLog);
+          
+
         }
         private void waitForFloodFinish()
         {
@@ -114,6 +134,11 @@ namespace PingBot
 
         private async Task sequentialTest(int bufferSize)
         {
+            string addresses = "IP Address: \t"; //define variables for use in log
+            string statuses = "Status: \t";
+            string rtts = "RTT: \t\t";
+            string ttls = "TTL: \t\t";
+
             sequentialReplies = new List<PingStats>();
             foreach (string ipAddress in PingTargets)
             {
@@ -138,6 +163,11 @@ namespace PingBot
                             stats.Status = IPStatus.Unknown;
                         }
                         sequentialReplies.Add(stats);
+
+                        addresses = addresses + stats.Address + "\t"; //append the data in the strings to be used in the log
+                        statuses = statuses + stats.Status + " \t";
+                        rtts = rtts + stats.RoundtripTime + "\t\t";
+                        ttls = ttls + stats.TTL + "\t\t";
                     };
 
                     byte[] buffer = new byte[bufferSize];
@@ -146,6 +176,18 @@ namespace PingBot
                     sequentialDataGridView.DataSource = sequentialReplies;
                 }
             }
+
+            DateTime localDate = DateTime.Now; //output log
+            String fileFormat = "MMM d yyyy - HHmm";   // Use this format
+            String headerFormat = "MMM d yyyy - HH:mm";
+            String date = localDate.ToString(fileFormat);
+            String header = localDate.ToString(headerFormat);
+            String seqLog = header + " Sequential Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n";
+            using (StreamWriter sw = File.AppendText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Network Ping Log for " + date + @".txt"))
+            {
+                sw.WriteLine("\r\n\r\n" + seqLog);
+            }
+            //System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Network Ping Log for " + date + @".txt", seqLog);
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
