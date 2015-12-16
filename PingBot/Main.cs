@@ -131,8 +131,8 @@ namespace PingBot
             label3.Text = "Flood Test RTT Average: " + rtt_avg + "\r\nFlood Test TTL Average: " + ttl_avg; //set the average in the winform
 
             DateTime localDate = DateTime.Now; //output log
-            String fileFormat = "MMM d yyyy - HHmm";   // Use this format
-            String headerFormat = "MMM d yyyy - HH:mm";
+            String fileFormat = "MMM d yyyy - HHmmss";   // Use this format
+            String headerFormat = "MMM d yyyy - HH:mm:ss";
             date = localDate.ToString(fileFormat);
             String header = localDate.ToString(headerFormat);
             String floodLog = header + " Flood Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n\r\n" + "Average RTT: " + rtt_avg + "\r\nAverage TTL: " + ttl_avg + "\r\n"; 
@@ -206,7 +206,7 @@ namespace PingBot
 
             DateTime localDate = DateTime.Now; //output log
             //String fileFormat = "MMM d yyyy - HHmm";   // Use this format
-            String headerFormat = "MMM d yyyy - HH:mm";
+            String headerFormat = "MMM d yyyy - HH:mm:ss";
             //String date = localDate.ToString(fileFormat);
             String header = localDate.ToString(headerFormat);
             String seqLog = header + " Sequential Test\r\n\r\n" + addresses + "\r\n" + statuses + "\r\n" + rtts + "\r\n" + ttls + "\r\n\r\n" + "Average RTT: " + rtt_avg + "\r\nAverage TTL: " + ttl_avg + "\r\n"; 
